@@ -1,3 +1,13 @@
-<p>1 Bitcoin is valued at $<%= @usd_rate %> USD.</p>
-<p>Your Bitcoin is worth $<%= @usd_value %>.</p>
+<h1>Bitcoin Value Calculator</h1>
 
+<%= form_with url: bitcoins_path, method: :get do %>
+  <label for="amount">How many Bitcoins do you have?</label>
+  <%= text_field_tag :amount, params[:amount], placeholder: "e.g., 0.5" %>
+  <%= submit_tag "Calculate" %>
+<% end %>
+
+<p>1 Bitcoin is valued at $<%= @usd_rate %> USD.</p>
+
+<% if @usd_value.present? %>
+  <p>Your Bitcoin is worth $<%= @usd_value.round(2) %>.</p>
+<% end %>

@@ -12,7 +12,11 @@ class BitcoinsController < ApplicationController
     # Extract current rate
     @usd_rate = bitcoin_data["USD"]["last"]
 
-    # Calculate user's Bitcoin value (assuming a fixed amount, e.g., 1 Bitcoin)
-    @usd_value = @usd_rate * 1 # Replace '1' with a user's Bitcoin balance if applicable
+    # Get user input and convert it to float
+    bitcoin_amount = params[:amount].to_f
+    bitcoin_amount = 1 if bitcoin_amount.zero? # Default to 1 if input is empty or invalid
+
+    # Calculate user's Bitcoin value
+    @usd_value = @usd_rate * bitcoin_amount
   end
 end
